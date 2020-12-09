@@ -5,8 +5,8 @@ import {
   useLocation,
   useHistory,
 } from 'react-router-dom';
-import { Slate, Title } from 'packages/core';
-import { green } from 'packages/colors';
+import { Slate, Title } from '../../packages/core';
+import { green } from '../../packages/colors';
 import Overview from './overview';
 
 // ----------------------------------

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
-import NavigationBar from 'packages/navigation';
+import NavigationBar from '../packages/navigation';
 import styled from 'styled-components';
-import { Slate } from 'packages/core';
-import { red } from 'packages/colors';
+import { Slate } from '../packages/core';
+import { red } from '../packages/colors';
 import Money from './money';
 import Music from './music';
 // ----------------------------------
