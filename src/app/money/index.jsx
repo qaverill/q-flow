@@ -31,7 +31,7 @@ const  Money = () => {
           <Title>ANALYZE</Title>
         </Route>
         <Route path="/money">
-          <Title>MONEY PAGE</Title>
+          <Audit />
         </Route>
         <Route exact path="/">
           <Overview />

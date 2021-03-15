@@ -7,8 +7,8 @@ const PATH = '/api/money';
 // FETCHERS
 // ----------------------------------
 export const fetchTransactions = (timeframe) => new Promise((resolve) => {
-  axios.get(`${PATH}/transactions`, timeframe).then((transactions) => {
-    resolve(transactions);
+  axios.get(`${PATH}/transactions`, timeframe).then(({ data }) => {
+    resolve(data);
   });
 });
 export const createPayback = (payback) => new Promise((resolve) => {

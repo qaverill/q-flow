@@ -9,6 +9,7 @@ import { fetchTransactions } from './api';
 // ----------------------------------
 const AuditContainer = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 const TransactionContainer = styled.div`
   display: flex;
@@ -21,9 +22,9 @@ const TransactionContainer = styled.div`
 // COMPONENTS
 // ----------------------------------
 const Transaction = ({ transaction }) => {
-  const { description } = transaction;
+  const { description, id } = transaction;
   return (
-    <TransactionContainer>
+    <TransactionContainer key={id}>
       {description}
     </TransactionContainer>
   );
@@ -32,10 +33,10 @@ const Audit = () => {
   const [transactions, setTransactions] = React.useState([]);
   React.useEffect(() => {
     fetchTransactions().then(setTransactions);
-  });
+  }, []);
   return (
     <AuditContainer>
-      {transactions.map((transaction) => <Transaction transaction={transaction} />)}
+      {transactions.map((transaction) => <Transaction key={transaction.id} transaction={transaction} />)}
     </AuditContainer>
   );
 };

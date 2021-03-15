@@ -48,7 +48,7 @@ const NavigationBar = () => {
   return (
     <NavigationBarContainer>
       <Title onClick={navigateToQ}>Q</Title>
-      {paths.map((path) => <NavigationItem path={path} />)}
+      {paths.map((path) => <NavigationItem key={path} path={path} />)}
     </NavigationBarContainer>
   );
 };
