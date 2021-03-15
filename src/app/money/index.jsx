@@ -8,7 +8,7 @@ import {
 import { Slate, Title } from '../../packages/core';
 import { purple } from '../../packages/colors';
 import Overview from './overview';
-
+import Audit from './Audit';
 // ----------------------------------
 // STYLES
 // ----------------------------------
@@ -16,7 +16,7 @@ import Overview from './overview';
 // ----------------------------------
 // COMPONENTS
 // ----------------------------------
-export default function Moneu() {
+const  Money = () => {
   const { pathname } = useLocation();
   const history = useHistory();
   const isOverview = pathname === '/';
@@ -40,3 +40,5 @@ export default function Moneu() {
     </Slate>
   );
 }
+
+export default Money;

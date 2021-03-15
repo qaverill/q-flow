@@ -2,8 +2,8 @@
 // HELPERS
 // ----------------------------------
 export const ONE_EPOCH_DAY = 86400;
-const getMonth = date => (date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1);
-const getDate = date => (date.getDate() < 10 ? `0${date.getDate()}` : date.getDate());
+const getMonth = (date) => (date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1);
+const getDate = (date) => (date.getDate() < 10 ? `0${date.getDate()}` : date.getDate());
 // ----------------------------------
 // CONVERTERS
 // ----------------------------------
@@ -28,10 +28,10 @@ export const times = {
     ) / 1000,
   ),
   now: () => Math.round(new Date().getTime() / 1000),
-  getNameOfMonth: timestamp => {
+  getNameOfMonth: (timestamp) => {
     const date = epochToDate(timestamp);
     const month = date.toLocaleString('default', { month: 'long' });
     return month;
   },
-  getMonthAndYear: date => `${getMonth(date)}/${date.getFullYear().toString().slice(2)}`,
+  getMonthAndYear: (date) => `${getMonth(date)}/${date.getFullYear().toString().slice(2)}`,
 };

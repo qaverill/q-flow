@@ -8,7 +8,7 @@ import { dark } from '../colors';
 // HELPERS
 // ----------------------------------
 // TODO: make this return objects that include the full path up to each item in path
-const mapToDataNeeded = path => path;
+const mapToDataNeeded = (path) => path;
 const selectPath = R.compose(
   mapToDataNeeded,
   R.filter(R.compose(
@@ -27,13 +27,13 @@ const NavigationBarContainer = styled.div`
 `;
 const NavigationItemContainer = styled.div`
   background-color: ${dark};
-  border: 5px solid ${props => props.color};
+  border: 5px solid ${(props) => props.color};
   border-radius: 15px 15px 15px 15px;
 `;
 // ----------------------------------
 // COMPONENTS
 // ----------------------------------
-const NavigationItem = props => {
+const NavigationItem = (props) => {
   const { path } = props;
   return (
     <NavigationItemContainer>
@@ -48,7 +48,7 @@ const NavigationBar = () => {
   return (
     <NavigationBarContainer>
       <Title onClick={navigateToQ}>Q</Title>
-      {paths.map(path => <NavigationItem path={path} />)}
+      {paths.map((path) => <NavigationItem path={path} />)}
     </NavigationBarContainer>
   );
 };
