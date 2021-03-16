@@ -12,11 +12,10 @@ import Audit from './Audit';
 // ----------------------------------
 // STYLES
 // ----------------------------------
-
 // ----------------------------------
 // COMPONENTS
 // ----------------------------------
-const  Money = () => {
+const Money = () => {
   const { pathname } = useLocation();
   const history = useHistory();
   const isOverview = pathname === '/';
@@ -39,6 +38,6 @@ const  Money = () => {
       </Switch>
     </Slate>
   );
-}
+};
 
 export default Money;

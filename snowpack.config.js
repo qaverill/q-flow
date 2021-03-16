@@ -1,4 +1,3 @@
-/** @type {import("snowpack").SnowpackUserConfig } */
 const httpProxy = require('http-proxy');
 const proxy = httpProxy.createServer({ target: 'http://localhost:4040' });
 

@@ -10,11 +10,12 @@ import { fetchTransactions } from './api';
 const AuditContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  overflow: auto;
 `;
 const TransactionContainer = styled.div`
   display: flex;
   height: 50px;
-  width: 100%;
   border: black solid 2px;
   border-radius: 50px;
 `;
@@ -36,7 +37,7 @@ const Audit = () => {
   }, []);
   return (
     <AuditContainer>
-      {transactions.map((transaction) => <Transaction key={transaction.id} transaction={transaction} />)}
+      {transactions.reverse().map((transaction) => <Transaction key={transaction.id} transaction={transaction} />)}
     </AuditContainer>
   );
 };

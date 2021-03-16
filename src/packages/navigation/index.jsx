@@ -23,7 +23,8 @@ const selectPath = R.compose(
 // ----------------------------------
 const NavigationBarContainer = styled.div`
   display: flex;
-  margin: 20px 20px 0 20px;
+  height: 50px;
+  background-color: yellow;
 `;
 const NavigationItemContainer = styled.div`
   background-color: ${dark};

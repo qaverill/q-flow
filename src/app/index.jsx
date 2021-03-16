@@ -14,6 +14,9 @@ const AppContainer = styled.div`
   flex-direction: column;
   height: 100%;
 `;
+const RootSlate = styled(Slate)`
+  height: calc(100% - 80px);
+`;
 // ----------------------------------
 // COMPONENTS
 // ----------------------------------
@@ -24,14 +27,14 @@ export default function App() {
   return (
     <AppContainer>
       <NavigationBar />
-      <Slate rimColor={red} root>
+      <RootSlate rimColor={red} root>
         <Switch>
           <Route path="/">
             {shouldDisplayMusic && <Music />}
             {shoulDisplayMoney && <Money />}
           </Route>
         </Switch>
-      </Slate>
+      </RootSlate>
     </AppContainer>
   );
 }
