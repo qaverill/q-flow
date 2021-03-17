@@ -12,10 +12,12 @@ import Music from './music';
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   height: 100%;
 `;
 const RootSlate = styled(Slate)`
-  height: calc(100% - 80px);
+  justify-content: center;
+  align-items: center;
 `;
 // ----------------------------------
 // COMPONENTS
@@ -27,7 +29,7 @@ export default function App() {
   return (
     <AppContainer>
       <NavigationBar />
-      <RootSlate rimColor={red} root>
+      <RootSlate rimColor={red}>
         <Switch>
           <Route path="/">
             {shouldDisplayMusic && <Music />}
