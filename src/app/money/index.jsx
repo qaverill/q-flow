@@ -21,7 +21,7 @@ const Money = () => {
   const isOverview = pathname === '/';
   const leaveOverview = () => history.replace('/money');
   return (
-    <Slate rimColor={purple} onClick={isOverview ? leaveOverview : null} left={isOverview}>
+    <Slate color={purple} onClick={isOverview ? leaveOverview : null} left={isOverview}>
       <Switch>
         <Route path="/money/audit">
           <Title>AUDIT</Title>

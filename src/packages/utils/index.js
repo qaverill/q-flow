@@ -35,3 +35,10 @@ export const times = {
   },
   getMonthAndYear: (date) => `${getMonth(date)}/${date.getFullYear().toString().slice(2)}`,
 };
+
+export const numberToPrice = (number) => {
+  const polarity = number < 0 ? '-' : '';
+  const amount = number < 0 ? number * -1 : number;
+  const tail = number % 1 === 0 ? '.00' : '';
+  return `${polarity}$${amount}${tail}`;
+};

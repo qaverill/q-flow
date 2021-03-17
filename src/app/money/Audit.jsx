@@ -15,9 +15,10 @@ const AuditContainer = styled.div`
 `;
 const TransactionContainer = styled.div`
   display: flex;
-  height: 50px;
-  border: black solid 2px;
+  border: black solid 3px;
   border-radius: 50px;
+  margin: 0.25em;
+  padding: 0.25em;
 `;
 // ----------------------------------
 // COMPONENTS
@@ -37,7 +38,9 @@ const Audit = () => {
   }, []);
   return (
     <AuditContainer>
-      {transactions.reverse().map((transaction) => <Transaction key={transaction.id} transaction={transaction} />)}
+      {transactions.reverse().map((transaction) => (
+        <Transaction key={transaction.id} transaction={transaction} />
+      ))}
     </AuditContainer>
   );
 };

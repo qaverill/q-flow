@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import * as R from 'ramda';
 import styled from 'styled-components';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Title } from '../core';
+import { Title } from '../core/styles';
 import { dark } from '../colors';
 // ----------------------------------
 // HELPERS
@@ -24,26 +24,11 @@ const selectPath = R.compose(
 const NavigationBarContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 1em;
-  margin-left: 1em;
-`;
-const NavigationItemContainer = styled.div`
-  display: flex;
-  background-color: ${dark};
-  border: 5px solid ${(props) => props.color};
-  border-radius: 15px 15px 15px 15px;
+  margin: 1em 1em 0 1em;
 `;
 // ----------------------------------
 // COMPONENTS
 // ----------------------------------
-const NavigationItem = (props) => {
-  const { path } = props;
-  return (
-    <NavigationItemContainer>
-      <Title>{path}</Title>
-    </NavigationItemContainer>
-  );
-};
 const NavigationBar = () => {
   const paths = selectPath(useLocation());
   const history = useHistory();
@@ -51,7 +36,12 @@ const NavigationBar = () => {
   return (
     <NavigationBarContainer>
       <Title onClick={navigateToQ}>Q</Title>
-      {paths.map((path) => <NavigationItem key={path} path={path} />)}
+      {paths.map((path) => (
+        <React.Fragment key={path}>
+          <Title>-></Title>
+          <Title>{path}</Title>
+        </React.Fragment>
+      ))}
     </NavigationBarContainer>
   );
 };

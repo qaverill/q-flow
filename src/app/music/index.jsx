@@ -22,7 +22,7 @@ export default function Music() {
   const isOverview = pathname === '/';
   const leaveOverview = () => history.replace('/music');
   return (
-    <Slate rimColor={green} onClick={isOverview ? leaveOverview : null} left={isOverview}>
+    <Slate color={green} onClick={isOverview ? leaveOverview : null}>
       <Switch>
         <Route path="/music/audit">
           <Title>AUDIT</Title>

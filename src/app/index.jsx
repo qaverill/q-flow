@@ -15,10 +15,6 @@ const AppContainer = styled.div`
   flex-grow: 1;
   height: 100%;
 `;
-const RootSlate = styled(Slate)`
-  justify-content: center;
-  align-items: center;
-`;
 // ----------------------------------
 // COMPONENTS
 // ----------------------------------
@@ -29,14 +25,14 @@ export default function App() {
   return (
     <AppContainer>
       <NavigationBar />
-      <RootSlate rimColor={red}>
+      <Slate color={red}>
         <Switch>
           <Route path="/">
             {shouldDisplayMusic && <Music />}
             {shoulDisplayMoney && <Money />}
           </Route>
         </Switch>
-      </RootSlate>
+      </Slate>
     </AppContainer>
   );
 }
