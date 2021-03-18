@@ -4,6 +4,11 @@ import { fetchTransactions } from './api';
 // ----------------------------------
 // HELPERS
 // ----------------------------------
+const determineBackgroundColor = (tags) => {
+  if (tags[0] === '') return 'red';
+  if (tags.includes('payBack')) return 'yellow';
+  return 'green';
+};
 // ----------------------------------
 // STYLES
 // ----------------------------------
@@ -19,15 +24,22 @@ const TransactionContainer = styled.div`
   border-radius: 50px;
   margin: 0.25em;
   padding: 0.25em;
+  background-color: ${(props) => props.backgroundColor};
+`;
+const Tags = styled.div`
+  align-self: flex-end;
 `;
 // ----------------------------------
 // COMPONENTS
 // ----------------------------------
 const Transaction = ({ transaction }) => {
-  const { description, id } = transaction;
+  const { description, id, tags } = transaction;
+  const backgroundColor = determineBackgroundColor(tags);
+  console.log(tags)
   return (
-    <TransactionContainer key={id}>
+    <TransactionContainer key={id} backgroundColor={backgroundColor}>
       {description}
+      <Tags>{tags.join(',')}</Tags>
     </TransactionContainer>
   );
 };
