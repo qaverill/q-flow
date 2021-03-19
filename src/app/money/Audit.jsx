@@ -1,6 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { timestampToString } from '../../packages/utils';
 import { fetchTransactions } from './api';
+import { Text } from '../../packages/core';
 // ----------------------------------
 // HELPERS
 // ----------------------------------
@@ -20,11 +22,15 @@ const AuditContainer = styled.div`
 `;
 const TransactionContainer = styled.div`
   display: flex;
+  align-items: center;
   border: black solid 3px;
   border-radius: 50px;
+  padding-top: 2px;
   margin: 0.25em;
-  padding: 0.25em;
   background-color: ${(props) => props.backgroundColor};
+`;
+const Date = styled(Text)`
+  margin-left: 1em;
 `;
 const Tags = styled.div`
   align-self: flex-end;
@@ -33,11 +39,13 @@ const Tags = styled.div`
 // COMPONENTS
 // ----------------------------------
 const Transaction = ({ transaction }) => {
-  const { description, id, tags } = transaction;
+  const { timestamp, description, id, tags } = transaction;
   const backgroundColor = determineBackgroundColor(tags);
-  console.log(tags)
+  const date = timestampToString(timestamp);
+  console.log(transaction)
   return (
     <TransactionContainer key={id} backgroundColor={backgroundColor}>
+      <Date>{date}</Date>
       {description}
       <Tags>{tags.join(',')}</Tags>
     </TransactionContainer>

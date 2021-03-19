@@ -1,3 +1,4 @@
+import * as React from 'react';
 import styled from 'styled-components';
 import * as R from 'ramda';
 import {
@@ -12,11 +13,12 @@ export const Title = styled.p`
   margin: 0;
 `;
 
-export const Text = styled.p`
-  font-size: 16px;
+export const Text = styled.h1`
+  font-size: 18px;
   color: ${(props) => (props.color == null ? white : props.color)};
   cursor: default;
   font-weight: bold;
+  margin: 0;
 `;
 
 export const Button = styled.button`
