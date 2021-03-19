@@ -1,4 +1,3 @@
-import * as React from 'react';
 import styled from 'styled-components';
 import * as R from 'ramda';
 import {
@@ -14,7 +13,7 @@ export const Title = styled.p`
 `;
 
 export const Text = styled.h1`
-  font-size: 18px;
+  font-size: 20px;
   color: ${(props) => (props.color == null ? white : props.color)};
   cursor: default;
   font-weight: bold;
@@ -34,7 +33,7 @@ export const Button = styled.button`
     outline: none;
   }
   background-color: ${(props) => (props.color == null ? medium : props.color)};
-  ${(props) => (R.isNil(props.clickable) || props.clickable) && (
+  ${(props) => props.onClick && (
     'cursor: pointer; :hover { filter: brightness(1.25); };'
   )}
 `;
