@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { dark } from '../colors';
-import { ScrollCSS } from './styles';
+import { dark } from '../../colors';
+import { ScrollCSS } from '../styles';
 // ----------------------------------
 // HELPERS
 // ----------------------------------
@@ -33,7 +33,7 @@ const SlateDiv = styled.div`
 // ----------------------------------
 // COMPONENTS
 // ----------------------------------
-export const Slate = (props) => {
+const Slate = (props) => {
   const { children } = props;
   return (
     <SlateBorder {...props}>
@@ -44,4 +44,4 @@ export const Slate = (props) => {
   );
 };
 
-export const deleteme = 1;
+export default Slate;

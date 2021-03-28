@@ -16,6 +16,8 @@ export const msToString = (durationInMs) => {
   return `${hours < 10 ? `0${hours}` : hours}h ${minutes < 10 ? `0${minutes}` : minutes}m ${seconds < 10 ? `0${seconds}` : seconds}s`;
 };
 
+export const round2Decimals = (num) => +((num).toFixed(2));
+
 export const times = {
   firstOfCurrentMonth: () => Math.round(
     new Date(
@@ -35,7 +37,7 @@ export const times = {
 
 export const numberToPrice = (number) => {
   const polarity = number < 0 ? '-' : '';
-  const amount = number < 0 ? number * -1 : number;
+  const amount = round2Decimals(number < 0 ? number * -1 : number);
   const tail = number % 1 === 0 ? '.00' : '';
   return `${polarity}$${amount}${tail}`;
 };
