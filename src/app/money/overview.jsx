@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title } from '../../packages/core/styles';
+import { Title } from '@q/core/styles';
 
 export default function MoneyOverview() {
   return (

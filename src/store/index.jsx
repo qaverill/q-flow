@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { ONE_EPOCH_DAY, times } from '../packages/utils';
+import { ONE_EPOCH_DAY, times } from '@q/utils';
 // ----------------------------------
 // HELPERS
 // ----------------------------------

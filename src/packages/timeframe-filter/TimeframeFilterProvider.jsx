@@ -22,4 +22,4 @@ export const TimeframeFilterProvider = ({ children }) => {
     </TimeframeFilterContext.Provider>
   );
 };
-export const useTimeframeFilterProvider = () => React.useContext();
+export const useTimeframeFilter = () => React.useContext(TimeframeFilterContext);

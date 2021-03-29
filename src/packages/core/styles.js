@@ -15,7 +15,6 @@ export const Title = styled.p`
 export const Text = styled.h1`
   font-size: 20px;
   color: ${(props) => (props.color == null ? white : props.color)};
-  cursor: default;
   font-weight: bold;
   margin: 0;
 `;

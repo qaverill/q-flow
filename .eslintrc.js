@@ -20,5 +20,13 @@ module.exports = {
   rules: {
     'react/prop-types': 0,
     'react/jsx-props-no-spreading': 0,
+    'import/no-unresolved': [2, { ignore: ['@q'] }],
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['src/packages'],
+      },
+    },
   },
 };
