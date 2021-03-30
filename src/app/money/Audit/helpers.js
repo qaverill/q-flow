@@ -1,5 +1,5 @@
 // ----------------------------------
 // HELPERS
 // ----------------------------------
-export const isPayback = (tags) => tags.includes('payBack');
-export const isUntagged = (tags) => tags[0] === '';
+export const transactionIsPayback = ({ tags }) => tags.includes('payBack');
+export const transactionIsUntagged = ({ tags }) => tags[0] === '';

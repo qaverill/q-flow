@@ -11,7 +11,7 @@ export const Item = styled.div`
   margin: 0.25em;
   padding: 5px;
   background-color: ${(props) => props.backgroundColor};
-  ${({ isClickable }) => isClickable && css`
+  ${({ isSelectable }) => isSelectable && css`
     cursor: pointer !important;
     :hover {
       border: ${green} solid 3px;

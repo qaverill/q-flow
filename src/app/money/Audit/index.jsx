@@ -6,14 +6,29 @@ import { green, red } from '@q/colors';
 import { fetchTransactions } from '../api';
 import { Item } from './styles';
 import Transaction from './Transaction';
-import { isUntagged, isPayback } from './helpers';
+import { transactionIsUntagged, transactionIsPayback } from './helpers';
+// ----------------------------------
+// HELPERS
+// ----------------------------------
+const filterTransactions = (transactions, filterOutGreens, paybackFrom) => {
+  const filteredTransactions = filterOutGreens
+    ? transactions.filter((transaction) => (
+      transactionIsPayback(transaction) || transactionIsUntagged(transaction)
+    ))
+    : transactions;
+  return R.without([paybackFrom], filteredTransactions);
+};
 // ----------------------------------
 // STYLES
 // ----------------------------------
 const AuditContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  overflow: auto;
+`;
+const ScrollableBody = styled.div`
+  display: flex;
+  flex-direction: column;
   overflow: auto;
 `;
 const SummaryContainer = styled(Item)`
@@ -28,8 +43,8 @@ const SummaryContainer = styled(Item)`
 // ----------------------------------
 const Summary = (props) => {
   const { transactions, onClick } = props;
-  const untagged = transactions.filter(({ tags }) => isUntagged(tags));
-  const paybacks = transactions.filter(({ tags }) => isPayback(tags));
+  const untagged = transactions.filter(transactionIsUntagged);
+  const paybacks = transactions.filter(transactionIsPayback);
   const color = untagged.length === 0 && paybacks.length === 0 ? green : red;
   return (
     <SummaryContainer backgroundColor={color} onClick={onClick} isClickable>
@@ -41,9 +56,9 @@ const Summary = (props) => {
 const Audit = () => {
   const [transactions, setTransactions] = React.useState([]);
   const [filterOutGreens, setFilterOutGreens] = React.useState(false);
-  const filteredTransactions = filterOutGreens
-    ? transactions.filter(({ tags }) => isPayback(tags) || isUntagged(tags))
-    : transactions;
+  const [paybackFrom, setPaybackFrom] = React.useState(null);
+  const filteredTransactions = filterTransactions(transactions, filterOutGreens, paybackFrom);
+  const paybackProps = { paybackFrom, setPaybackFrom };
   React.useEffect(() => {
     fetchTransactions().then(setTransactions);
   }, []);
@@ -53,10 +68,18 @@ const Audit = () => {
   if (R.isEmpty(transactions)) return <Loading />;
   return (
     <AuditContainer>
-      <Summary transactions={transactions} onClick={handleSummaryClick} />
-      {filteredTransactions.reverse().map((transaction, index) => (
-        <Transaction key={transaction.id} transaction={transaction} index={index} />
-      ))}
+      {paybackFrom && <Transaction transaction={paybackFrom} {...paybackProps} />}
+      <ScrollableBody>
+        <Summary transactions={transactions} onClick={handleSummaryClick} />
+        {filteredTransactions.reverse().map((transaction, index) => (
+          <Transaction
+            key={transaction.id}
+            transaction={transaction}
+            index={index}
+            {...paybackProps}
+          />
+        ))}
+      </ScrollableBody>
     </AuditContainer>
   );
 };

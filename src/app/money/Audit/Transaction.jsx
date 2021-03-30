@@ -6,14 +6,22 @@ import {
   purple, light,
 } from '@q/colors';
 import { Item } from './styles';
-import { isUntagged, isPayback } from './helpers';
+import { transactionIsUntagged, transactionIsPayback } from './helpers';
 // ----------------------------------
 // HELPERS
 // ----------------------------------
-const determineBackgroundColor = ({ tags }, index) => {
-  if (isUntagged(tags)) return light;
-  if (isPayback(tags)) return purple;
+const determineBackgroundColor = (transaction, index) => {
+  if (transactionIsUntagged(transaction)) return light;
+  if (transactionIsPayback(transaction)) return purple;
   return `rgba(0, 255, 0, ${index % 2 === 0 ? 0.2 : 0.4})`;
+};
+const transactionIsSelectable = (transaction, paybackFrom) => {
+  const isPayback = transactionIsPayback(transaction);
+  if (paybackFrom) {
+    if (transaction === paybackFrom) return true;
+    if (!isPayback) return true;
+  } else if (isPayback) return true;
+  return false;
 };
 // ----------------------------------
 // STYLES
@@ -37,23 +45,31 @@ const Tags = styled(Text)`
 // COMPONENTS
 // ----------------------------------
 const Transaction = (props) => {
-  const { transaction, index } = props;
+  const {
+    transaction, index, paybackFrom, setPaybackFrom,
+  } = props;
   const {
     id, timestamp, amount, description, tags,
   } = transaction;
   const backgroundColor = determineBackgroundColor(transaction, index);
-  const isClickable = isPayback(tags);
   const date = timestampToString(timestamp);
   const dollarAmount = numberToPrice(amount);
-  const tagsString = isPayback(tags) ? '💸' : tags.join(' - ');
-  function handleSelect() {
-    copyStringToClipboard(id);
+  const isPayback = transactionIsPayback(transaction);
+  const tagsString = isPayback ? '💸' : tags.join(' - ');
+  const isSelectable = transactionIsSelectable(transaction, paybackFrom);
+  function handleClick() {
+    if (isPayback) {
+      if (!paybackFrom) setPaybackFrom(transaction);
+      if (paybackFrom === transaction) setPaybackFrom(null);
+    } else {
+      copyStringToClipboard(id);
+    }
   }
   return (
     <Item
       backgroundColor={backgroundColor}
-      isClickable={isClickable}
-      onClick={handleSelect}
+      isSelectable={isSelectable}
+      onClick={handleClick}
     >
       <Date>{date}</Date>
       <AmountWrapper>
