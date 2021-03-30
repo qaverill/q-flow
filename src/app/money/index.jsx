@@ -31,7 +31,7 @@ const Money = () => {
     <Slate color={purple} onClick={isOverview ? leaveOverview : null} left={isOverview}>
       <TimeframeFilterProvider>
         <MoneyWrapper>
-          <TimeframeFilter />
+          <TimeframeFilter color={purple} />
           <Switch>
             <Route path="/money/audit">
               <Title>AUDIT</Title>

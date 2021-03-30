@@ -4,6 +4,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@q/colors": "link:src/packages/colors",
+    "@q/core": "link:src/packages/core",
+    "@q/navigation": "link:src/packages/navigation",
+    "@q/timeframe-filter": "link:src/packages/timeframe-filter",
+    "@q/utils": "link:src/packages/utils",
     "axios": "^0.21.1",
     "ramda": "^0.27.1",
     "react": "^17.0.1",
