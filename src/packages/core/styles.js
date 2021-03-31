@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-import * as R from 'ramda';
-import {
-  white, dark, yellow, medium,
-} from '../colors';
+import { white, dark, warning } from '../colors';
 
 export const Title = styled.p`
   font-size: 24px;
@@ -20,7 +17,7 @@ export const Text = styled.h1`
 `;
 
 export const Button = styled.button`
-  color: ${(props) => (props.color === yellow ? dark : white)};  
+  color: ${(props) => (props.color === warning ? dark : white)};  
   height: 30px;
   padding: 2.5px 7.5px;
   text-align: center;
@@ -31,7 +28,7 @@ export const Button = styled.button`
   :focus {
     outline: none;
   }
-  background-color: ${(props) => (props.color == null ? medium : props.color)};
+  background-color: ${(props) => (props.color == null ? white : props.color)};
   ${(props) => props.onClick && (
     'cursor: pointer; :hover { filter: brightness(1.25); };'
   )}

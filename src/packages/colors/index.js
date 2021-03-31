@@ -1,45 +1,25 @@
-export const black = '#040404';
-export const dark = '#222222';
-export const medium = '#454545';
-export const light = '#747474';
-export const white = '#FFFFFF';
-export const green = '#1DB954';
-export const yellow = '#F4E409';
-export const red = '#C5283D';
-export const purple = '#541DB9';
-export const orange = '#B9541D';
-export const aqua = '#3BA99C';
-
-export const dataQTheme = {
-  primary: purple,
-  secondary: green,
-  tertiary: orange,
-  quaternary: aqua,
-};
-
-export const musicTheme = {
-  primary: green,
-  secondary: orange,
-  tertiary: purple,
-};
-
-export const bassQTheme = {
-  primary: orange,
-  secondary: purple,
-  tertiary: green,
-};
-
-export const moneyTheme = {
-  primary: aqua,
-  secondary: green,
-  tertiary: purple,
-};
-
-export const dashboardTheme = {
-  primary: yellow,
-  secondary: green,
-  tertiary: aqua,
-  quaternary: purple,
-};
-
+/* eslint-disable no-multi-spaces */
 export const random = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+
+// ----------------------------------
+// BACKGROUND
+// ----------------------------------
+export const black =  '#040404';
+export const dark =   '#222222';
+export const light =  '#747474';
+export const white =  '#FFFFFF';
+// ----------------------------------
+// RAINBOW
+// ----------------------------------
+const red =           '#d53449';
+export const orange = '#FF7F11';
+const yellow =        '#F4E409';
+const green =         '#1CB050';
+export const blue =   '#008BF5';
+export const purple = '#5603AD';
+// ----------------------------------
+// TYPES
+// ----------------------------------
+export const success = green;
+export const warning = yellow;
+export const error = red;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ClipLoader from 'react-spinners/ClipLoader';
-import { green } from '../../colors';
+import { warning } from '../../colors';
 // ----------------------------------
 // STYLES
 // ----------------------------------
@@ -18,7 +18,7 @@ const FullDiv = styled.div`
 // ----------------------------------
 const Loading = ({ color, size }) => (
   <FullDiv>
-    <ClipLoader sizeUnit="px" size={size || 100} color={color || green} />
+    <ClipLoader sizeUnit="px" size={size || 100} color={color || warning} />
   </FullDiv>
 );
 

@@ -6,7 +6,7 @@ import {
   useHistory,
 } from 'react-router-dom';
 import { Slate, Title } from '@q/core';
-import { green } from '@q/colors';
+import { blue } from '@q/colors';
 import Overview from './overview';
 
 // ----------------------------------
@@ -22,7 +22,7 @@ export default function Music() {
   const isOverview = pathname === '/';
   const leaveOverview = () => history.replace('/music');
   return (
-    <Slate color={green} onClick={isOverview ? leaveOverview : null}>
+    <Slate color={blue} onClick={isOverview ? leaveOverview : null}>
       <Switch>
         <Route path="/music/audit">
           <Title>AUDIT</Title>

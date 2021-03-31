@@ -3,7 +3,7 @@ import { Switch, Route, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import NavigationBar from '@q/navigation';
 import { Slate } from '@q/core';
-import { red } from '@q/colors';
+import { orange } from '@q/colors';
 import Money from './money';
 import Music from './music';
 // ----------------------------------
@@ -25,7 +25,7 @@ export default function App() {
   return (
     <AppContainer>
       <NavigationBar />
-      <Slate color={red}>
+      <Slate color={orange}>
         <Switch>
           <Route path="/">
             {shouldDisplayMusic && <Music />}
