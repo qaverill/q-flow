@@ -22,6 +22,14 @@ export const PaybackFromTransaction = styled(Item)`
   }
 `;
 
+export const PaybackToTransaction = styled(Item)`
+  background-color: ${success};
+  cursor: pointer;
+  :hover {
+    border: ${error} solid 3px;
+  }
+`;
+
 export const PaybackTransacton = styled(Item)`
   background-color: ${blue};
   ${({ isSelectable }) => isSelectable && css`

@@ -10,7 +10,7 @@ import { Slate, Title } from '@q/core';
 import { purple } from '@q/colors';
 import { TimeframeFilterProvider, TimeframeFilter } from '@q/timeframe-filter';
 import Overview from './overview';
-import Audit from './Audit';
+import Audit, { AuditProvider } from './Audit';
 // ----------------------------------
 // STYLES
 // ----------------------------------
@@ -40,7 +40,9 @@ const Money = () => {
               <Title>ANALYZE</Title>
             </Route>
             <Route path="/money">
-              <Audit />
+              <AuditProvider>
+                <Audit />
+              </AuditProvider>
             </Route>
             <Route exact path="/">
               <Overview />
