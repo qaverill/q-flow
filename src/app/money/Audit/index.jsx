@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import styled from 'styled-components';
 import { Text, Loading } from '@q/core';
 import { success, error, blue } from '@q/colors';
-import { fetchTransactions } from '../api';
+import { fetchTransactions, submitPayback } from '../api';
 import { Item } from './transactionStyles';
 import {
   PaybackFrom, Payback, Untagged, Tagged, PaybackTo, PAYBACK_SYMBOL,
@@ -15,13 +15,12 @@ import { AuditProvider, useAuditContext } from './context';
 const transactionIsPayback = ({ tags }) => tags.includes('payBack');
 const transactionIsUntagged = ({ tags }) => tags[0] === '';
 const filterTransactions = () => {
-  const { transactions, filterOutGreens, paybackFrom } = useAuditContext();
-  const filteredTransactions = filterOutGreens
+  const { transactions, filterOutGreens } = useAuditContext();
+  return filterOutGreens
     ? transactions.filter((transaction) => (
       transactionIsPayback(transaction) || transactionIsUntagged(transaction)
     ))
     : transactions;
-  return R.without([paybackFrom], filteredTransactions);
 };
 // ----------------------------------
 // STYLES
@@ -81,7 +80,7 @@ const Summary = () => {
 };
 const Transactions = () => {
   const transactions = filterTransactions();
-  return transactions.reverse().map((transaction, index) => {
+  return transactions.map((transaction, index) => {
     const isPayback = transactionIsPayback(transaction);
     const isUntagged = transactionIsUntagged(transaction);
     return (
@@ -95,14 +94,21 @@ const Transactions = () => {
 };
 const Audit = () => {
   const {
-    transactions, setTransactions, paybackFrom, paybackTo,
+    transactions, setTransactions, paybackFrom, paybackTo, setPaybackTo, setPaybackFrom,
   } = useAuditContext();
-  React.useEffect(() => {
+  function loadTransactions() {
     fetchTransactions().then(setTransactions);
-  }, []);
-  function handleSubmitPayback() {
-    console.log(paybackFrom, 'TO', paybackTo);
   }
+  function handleSubmitPayback() {
+    const payback = { from: paybackFrom.id, to: paybackTo.id };
+    submitPayback(payback).then(() => {
+      setPaybackTo(null);
+      setPaybackFrom(null);
+      setTransactions([]);
+      loadTransactions();
+    });
+  }
+  React.useEffect(loadTransactions, []);
   if (R.isEmpty(transactions)) return <Loading />;
   return (
     <AuditContainer>

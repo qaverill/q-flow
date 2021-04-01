@@ -26,6 +26,7 @@ const PaybackSymbol = styled.div`
   display: flex;
   align-items: center;
   margin-left: 10px;
+  width: 1em;
 `;
 const AmountWrapper = styled.div`
   width: 110px;

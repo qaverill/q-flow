@@ -11,6 +11,10 @@ export const fetchTransactions = (timeframe) => new Promise((resolve) => {
     resolve(data);
   });
 });
-export const createPayback = (payback) => new Promise((resolve) => {
-  axios.post(`${PATH}/paybacks`, payback).then(resolve);
+export const submitPayback = (payback) => new Promise((resolve) => {
+  axios.post(`${PATH}/paybacks`, payback)
+    .then(resolve)
+    .catch((error) => {
+      console.error(error);
+    });
 });
