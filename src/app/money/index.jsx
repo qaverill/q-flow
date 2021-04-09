@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {
   Switch,
   Route,
@@ -8,9 +8,20 @@ import {
 import styled from 'styled-components';
 import { Slate, Title } from '@q/core';
 import { purple } from '@q/colors';
-import { TimeframeFilterProvider, TimeframeFilter } from '@q/timeframe-filter';
+import { startOfCurrentMonth, now } from '@q/time';
+import { TimeframeFilterProvider, TimeframeFilter, useTimeframeFilter } from '@q/timeframe-filter';
 import Overview from './overview';
 import Audit, { AuditProvider } from './Audit';
+// ----------------------------------
+// HELPERS
+// ----------------------------------
+const initializeTimeframe = () => {
+  const { setStart, setEnd } = useTimeframeFilter();
+  const start = startOfCurrentMonth();
+  const end = now();
+  setStart(start);
+  setEnd(end);
+};
 // ----------------------------------
 // STYLES
 // ----------------------------------
@@ -26,7 +37,10 @@ const Money = () => {
   const { pathname } = useLocation();
   const history = useHistory();
   const isOverview = pathname === '/';
-  const leaveOverview = () => history.replace('/money');
+  function leaveOverview() {
+    history.replace('/money');
+  }
+  React.useEffect(initializeTimeframe, []);
   return (
     <Slate color={purple} onClick={isOverview ? leaveOverview : null} left={isOverview}>
       <TimeframeFilterProvider>
