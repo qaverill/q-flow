@@ -1,11 +1,13 @@
 import React from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, Route, useRouteMatch, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import NavigationBar from '@q/navigation';
 import { Slate } from '@q/core';
 import { orange } from '@q/colors';
 import Money from './money';
+import MoneyOverview from './money/overview';
 import Music from './music';
+import MusicOverview from './music/overview';
 // ----------------------------------
 // STYLES
 // ----------------------------------
@@ -15,24 +17,47 @@ const AppContainer = styled.div`
   flex-grow: 1;
   height: 100%;
 `;
+const AppSlate = styled(Slate)`
+  margin: 10px;
+`;
+const HomeContainer = styled.div`
+  display: flex;
+  flex-grow: 1;
+`;
+const HalfLink = styled(NavLink)`
+  display: flex;
+  width: 50%;
+`;
 // ----------------------------------
 // COMPONENTS
 // ----------------------------------
-export default function App() {
-  const { pathname } = useLocation();
-  const shouldDisplayMusic = pathname === '/' || pathname.includes('music');
-  const shoulDisplayMoney = pathname === '/' || pathname.includes('money');
-  return (
-    <AppContainer>
-      <NavigationBar />
-      <Slate color={orange}>
-        <Switch>
-          <Route path="/">
-            {shouldDisplayMusic && <Music />}
-            {shoulDisplayMoney && <Money />}
-          </Route>
-        </Switch>
-      </Slate>
-    </AppContainer>
-  );
-}
+const Home = () => (
+  <HomeContainer>
+    <HalfLink to="/music">
+      <MusicOverview />
+    </HalfLink>
+    <HalfLink to="/money">
+      <MoneyOverview />
+    </HalfLink>
+  </HomeContainer>
+);
+const App = () => (
+  <AppContainer>
+    <NavigationBar />
+    <AppSlate color={orange}>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/money">
+          <Money />
+        </Route>
+        <Route path="/music">
+          <Music />
+        </Route>
+      </Switch>
+    </AppSlate>
+  </AppContainer>
+);
+
+export default App;

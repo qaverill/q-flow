@@ -8,15 +8,13 @@ import {
 import { Slate, Title } from '@q/core';
 import { blue } from '@q/colors';
 import Overview from './overview';
-
 // ----------------------------------
 // STYLES
 // ----------------------------------
-
 // ----------------------------------
 // COMPONENTS
 // ----------------------------------
-export default function Music() {
+const Music = () => {
   const { pathname } = useLocation();
   const history = useHistory();
   const isOverview = pathname === '/';
@@ -39,4 +37,6 @@ export default function Music() {
       </Switch>
     </Slate>
   );
-}
+};
+
+export default Music;

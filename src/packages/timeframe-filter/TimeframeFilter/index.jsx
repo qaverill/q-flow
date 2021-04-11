@@ -14,8 +14,8 @@ const TimeframeFilterContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 100%;
   padding-bottom: 5px;
+  margin: -6px -6px 0 -6px;
   background-color: ${(props) => props.color || 'white'};
 `;
 const DateSelector = styled(TextInput)`

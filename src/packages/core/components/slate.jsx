@@ -12,7 +12,7 @@ const SLATE_BORDER = 5;
 const SlateBorder = styled.div`
   display: flex;
   flex-grow: 1;
-  margin: 1em;
+  padding: 6px;
 
   background-color: ${dark};
   border: ${SLATE_BORDER}px solid ${(props) => props.color};

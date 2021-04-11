@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as R from 'ramda';
 import styled from 'styled-components';
-import { useLocation, useHistory } from 'react-router-dom';
-import { Title } from '../core/styles';
+import { useLocation, useHistory, NavLink } from 'react-router-dom';
+import { ScrollCSS, Title } from '../core/styles';
 import { dark } from '../colors';
 // ----------------------------------
 // HELPERS
@@ -26,20 +26,33 @@ const NavigationBarContainer = styled.div`
   align-items: center;
   margin: 1em 1em 0 1em;
 `;
+const StyledNavLink = styled(NavLink)`
+  cursor: pointer;
+`;
 // ----------------------------------
 // COMPONENTS
 // ----------------------------------
+const LinkToPath = ({ path }) => {
+  return (
+    <StyledNavLink to={`/${path}`}>
+      <Title>{path}</Title>
+    </StyledNavLink>
+  );
+}
 const NavigationBar = () => {
-  const paths = selectPath(useLocation());
-  const history = useHistory();
-  const navigateToQ = () => history.replace('/');
+  const location = useLocation();
+  const paths = selectPath(location);
   return (
     <NavigationBarContainer>
-      <Title onClick={navigateToQ}>Q</Title>
-      {paths.map((path) => (
+      <StyledNavLink to="/"><Title>Q</Title></StyledNavLink>
+      
+      {paths.map((path, index) => (
         <React.Fragment key={path}>
           <Title>-></Title>
-          <Title>{path}</Title>
+          {index !== paths.length - 1 
+            ? <LinkToPath path={path} />
+            : <Title>{path}</Title>
+          }
         </React.Fragment>
       ))}
     </NavigationBarContainer>

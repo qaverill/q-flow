@@ -25,3 +25,7 @@ div::-webkit-scrollbar-thumb:hover {
   width: 100%;
   background-color: black;
 }
+
+a {
+  text-decoration: none;
+}
