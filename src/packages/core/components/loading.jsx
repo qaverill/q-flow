@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ClipLoader from 'react-spinners/ClipLoader';
-import { warning } from '../../colors';
+import { warning } from '@q/colors';
 // ----------------------------------
 // STYLES
 // ----------------------------------

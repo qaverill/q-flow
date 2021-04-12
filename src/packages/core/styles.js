@@ -47,21 +47,3 @@ export const ScrollCSS = `
     }
   }
 `;
-
-export const TextInput = styled.input`
-  font-size: 16px;
-  height: 30px;
-  padding: 2.5px 7.5px;
-  border: 2px solid black;
-  border-radius: 15px;
-  margin: 2.5px;
-  box-sizing: border-box;
-  background-color: white;
-  color: black;
-  :focus {
-    outline: none;
-    border: 3px solid black;
-    padding: 1.5px;
-    padding-left: 6.5px;
-  }
-`;

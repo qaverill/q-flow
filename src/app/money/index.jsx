@@ -10,6 +10,7 @@ import { purple } from '@q/colors';
 import { startOfCurrentMonth, now } from '@q/utils';
 import { TimeframeFilterProvider, TimeframeFilter } from '@q/timeframe-filter';
 import Audit, { AuditProvider } from './Audit';
+import Analyze from './Analyze';
 // ----------------------------------
 // HELPERS
 // ----------------------------------
@@ -50,7 +51,7 @@ const Money = () => {
               </AuditProvider>
             </Route>
             <Route path="/money/analyze">
-              <Title>ANALYZE</Title>
+              <Analyze />
             </Route>
             <Route path="/money">
               <MoneyHome />

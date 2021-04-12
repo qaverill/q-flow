@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { TextInput } from '@q/core';
-import { timestampToString, stringToTimestamp } from '@q/utils';
+import { TextInput, DateInput } from '@q/core';
 import { useTimeframeFilter } from '../TimeframeFilterProvider';
 // ----------------------------------
 // HELPERS
@@ -12,14 +11,11 @@ import { useTimeframeFilter } from '../TimeframeFilterProvider';
 const TimeframeFilterContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-shrink: 0;
-  padding-bottom: 5px;
-  margin: -6px -6px 0 -6px;
+  padding-bottom: 3px;
+  margin: -9px -6px 0 -6px;
   background-color: ${(props) => props.color || 'white'};
-`;
-const DateSelector = styled(TextInput)`
-  width: 100px;
 `;
 // ----------------------------------
 // COMPONENTS
@@ -27,23 +23,13 @@ const DateSelector = styled(TextInput)`
 const TimeframeFilter = (props) => {
   const { color } = props;
   const {
-    start, end, setStart, setEnd,
+    start, end, setStart, setEnd, setFilter,
   } = useTimeframeFilter();
-  const startString = timestampToString(start);
-  const endString = timestampToString(end);
-  function handleStartChange(value) {
-    const timestamp = stringToTimestamp(value);
-    setStart(timestamp);
-  }
-  function handleEndChange(value) {
-    const timestamp = stringToTimestamp(value);
-    setEnd(timestamp);
-  }
   return (
     <TimeframeFilterContainer color={color}>
-      <DateSelector onChange={handleStartChange} value={startString} />
-      TODO: TIMEFRAME
-      <DateSelector onChange={handleEndChange} value={endString} />
+      <DateInput onChange={setStart} value={start} />
+      <TextInput onChange={setFilter} />
+      <DateInput onChange={setEnd} value={end} />
     </TimeframeFilterContainer>
   );
 };

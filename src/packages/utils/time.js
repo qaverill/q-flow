@@ -36,7 +36,7 @@ export const stringToTimestamp = (string) => {
 
 export const now = () => {
   const date = new Date();
-  return date.getTime() / 1000;
+  return Math.round(date.getTime() / 1000);
 };
 
 export const startOfCurrentMonth = () => {
