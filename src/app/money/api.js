@@ -15,7 +15,7 @@ export const fetchTransactions = (timeframe) => new Promise((resolve) => {
     ));
 });
 export const fetchAnalysis = (timeframe) => new Promise((resolve) => {
-  axios.get(`${PATH}/analysis`, timeframe)
+  axios.get('/api/analyze/money', timeframe)
     .then(R.compose(
       resolve,
       R.prop('data'),

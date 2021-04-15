@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 import { Title } from '@q/core';
 import { fetchAnalysis } from '../api';
 // ----------------------------------
@@ -11,13 +12,14 @@ import { fetchAnalysis } from '../api';
 // COMPONENTS
 // ----------------------------------
 const Analyze = (props) => {
-  const [analysis, setAnalysis] = React.useState(null);
+  const [analysis, setAnalysis] = React.useState({});
   function loadAnalysis() {
     fetchAnalysis().then(setAnalysis);
   }
   React.useEffect(loadAnalysis, []);
+  console.log(analysis);
   return (
-    <Title>{analysis}</Title>
+    <Title>{R.keys(analysis.monthlyDeltas).length}</Title>
   );
 };
 
