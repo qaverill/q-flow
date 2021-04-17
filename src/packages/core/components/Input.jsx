@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import * as React from 'react';
 import { blue } from '@q/colors';
-import { timestampToString, stringToTimestamp } from '@q/utils';
+import { timestampToString, stringToTimestamp } from '@q/time';
 // ----------------------------------
 // HELPERS
 // ----------------------------------

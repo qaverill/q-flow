@@ -53,5 +53,3 @@ export const copyStringToClipboard = (string) => {
   document.execCommand('copy');
   document.body.removeChild(el);
 };
-
-export * from './time';

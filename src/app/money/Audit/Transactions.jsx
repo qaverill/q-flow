@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { timestampToString, numberToPrice, copyStringToClipboard } from '@q/utils';
+import { numberToPrice, copyStringToClipboard } from '@q/utils';
+import { timestampToString } from '@q/time';
 import { Text } from '@q/core';
 import {
   PaybackTransacton,

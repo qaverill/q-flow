@@ -9,16 +9,22 @@ const getDate = (date) => {
   const day = date.getUTCDate();
   return day < 10 ? `0${day}` : day;
 };
-const dateToString = (date) => {
+// ----------------------------------
+// EXPORTS
+// ----------------------------------
+export const timestampToString = (timestamp) => {
+  const date = new Date(timestamp * 1000);
   const month = getMonth(date);
   const day = getDate(date);
   const year = String(date.getFullYear()).slice(2);
   return `${month}/${day}/${year}`;
 };
-// ----------------------------------
-// EXPORTS
-// ----------------------------------
-export const timestampToString = (timestamp) => dateToString(new Date(timestamp * 1000));
+export const timestampToMonthString = (timestamp) => {
+  const date = new Date(timestamp * 1000);
+  const month = getMonth(date);
+  const year = String(date.getFullYear()).slice(2);
+  return `${month}/${year}`;
+};
 
 export const stringToTimestamp = (string) => {
   const splitString = string.split('/');

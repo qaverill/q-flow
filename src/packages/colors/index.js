@@ -11,10 +11,10 @@ export const white =  '#FFFFFF';
 // ----------------------------------
 // RAINBOW
 // ----------------------------------
-const red =           '#d53449';
+export const red =    '#d53449';
 export const orange = '#FF7F11';
-const yellow =        '#F4E409';
-const green =         '#1CB050';
+export const yellow = '#F4E409';
+export const green =  '#1CB050';
 export const blue =   '#008BF5';
 export const purple = '#9636FC';
 // ----------------------------------

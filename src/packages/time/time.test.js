@@ -1,4 +1,4 @@
-import { timestampToString, stringToTimestamp, now, startOfCurrentMonth } from './time';
+import { timestampToString, stringToTimestamp, now, startOfCurrentMonth } from './index';
 // ----------------------------------
 // HELPERS
 // ----------------------------------

@@ -7,7 +7,7 @@ import {
 import styled from 'styled-components';
 import { Slate, Title } from '@q/core';
 import { purple } from '@q/colors';
-import { startOfCurrentMonth, now } from '@q/utils';
+import { startOfCurrentMonth, now } from '@q/time';
 import { TimeframeFilterProvider, TimeframeFilter } from '@q/timeframe-filter';
 import Audit, { AuditProvider } from './Audit';
 import Analyze from './Analyze';
