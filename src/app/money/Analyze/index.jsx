@@ -68,8 +68,6 @@ const Analyze = (props) => {
         <Area type="monotone" dataKey="incoming" stroke={green} fillOpacity={0.5} fill={green} />
         <Area type="monotone" dataKey="outcoming" stroke={red} fillOpacity={0.5} fill={red} />
         <Area type="monotone" dataKey="delta" stroke={yellow} fillOpacity={0.5} fill={yellow} />
-        <XAxis dataKey="month" />
-        <YAxis />
         <Tooltip content={<CustomTooltip />} />
       </AreaChart>
 
