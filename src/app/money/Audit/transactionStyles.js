@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import {
-  success, black, blue, error, light, warning,
+  success, black, blue, light, warning,
 } from '@q/colors';
 // ----------------------------------
 // STYLES
@@ -16,28 +16,15 @@ export const Item = styled.div`
 
 export const PaybackFromTransaction = styled(Item)`
   background-color: ${blue};
-  cursor: pointer;
-  :hover {
-    border: ${error} solid 3px;
-  }
 `;
 
 export const PaybackToTransaction = styled(Item)`
   background-color: ${success};
-  cursor: pointer;
-  :hover {
-    border: ${error} solid 3px;
-  }
 `;
 
 export const PaybackTransacton = styled(Item)`
-  background-color: ${blue};
-  ${({ isSelectable }) => isSelectable && css`
-    cursor: pointer;
-    :hover {
-      border: ${success} solid 3px;
-    }
-  `};
+  background-color: ${light};
+  border: ${blue} solid 3px !important;
 `;
 
 export const UntaggedTransaction = styled(Item)`
@@ -47,10 +34,4 @@ export const UntaggedTransaction = styled(Item)`
 
 export const TaggedTransaction = styled(Item)`
   background-color: rgba(28, 178, 80, ${(props) => (((props.index % 2) + 1) * 0.5)});
-  ${({ isSelectable }) => isSelectable && css`
-    cursor: pointer;
-    :hover {
-      border: ${blue} solid 3px;
-    }
-  `};
 `;

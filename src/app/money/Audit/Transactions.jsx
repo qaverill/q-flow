@@ -1,8 +1,9 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { numberToPrice, copyStringToClipboard } from '@q/utils';
 import { timestampToString } from '@q/time';
 import { Text } from '@q/core';
+import { blue, light } from '@q/colors';
 import {
   PaybackTransacton,
   UntaggedTransaction,
@@ -15,7 +16,8 @@ import { useAuditContext } from './context';
 // HELPERS
 // ----------------------------------
 export const PAYBACK_SYMBOL = '💸';
-const secretOnClick = (id) => () => copyStringToClipboard(id);
+const REMOVE_SYMBOL = '❌';
+const secretAction = (id) => copyStringToClipboard(id);
 const paybackIsValid = (paybackFrom, paybackTo) => paybackFrom.amount < paybackTo.amount * -1;
 // ----------------------------------
 // STYLES
@@ -23,11 +25,23 @@ const paybackIsValid = (paybackFrom, paybackTo) => paybackFrom.amount < paybackT
 const Date = styled(Text)`
   margin-left: 10px;
 `;
-const PaybackSymbol = styled.div`
+const ActionWrapper = styled.div`
+  width: 20px;
+`;
+const Action = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 10px;
-  width: 1em;
+  justify-content: center;
+  height: 10px;
+  width: 12px;
+  padding-top: 2px;
+  border-radius: 50px;
+  margin-left: 3px;
+  cursor: pointer;
+  :hover {
+    border: ${blue} solid 3px;
+    margin-left: 0;
+  }
 `;
 const AmountWrapper = styled.div`
   width: 110px;
@@ -45,18 +59,27 @@ const Tags = styled(Text)`
 // COMPONENTS
 // ----------------------------------
 const TransactionContent = (props) => {
-  const { transaction, showPaybackSymbol } = props;
+  const { transaction, actionSymbol, actionHandler } = props;
   const {
-    timestamp, amount, description, tags,
+    id, timestamp, amount, description, tags,
   } = transaction;
   const date = timestampToString(timestamp);
-  const paybackSymbol = showPaybackSymbol && PAYBACK_SYMBOL;
+  const isSelectable = !!actionSymbol;
   const dollarAmount = numberToPrice(amount);
   const tagsString = tags.join(' - ');
+  function handleAction() {
+    if (isSelectable) {
+      actionHandler();
+    } else {
+      secretAction(id);
+    }
+  }
   return (
     <>
       <Date>{date}</Date>
-      <PaybackSymbol>{paybackSymbol}</PaybackSymbol>
+      <ActionWrapper>
+        <Action isSelectable={isSelectable} onClick={handleAction}>{actionSymbol}</Action>
+      </ActionWrapper>
       <AmountWrapper>
         <Text>{dollarAmount}</Text>
       </AmountWrapper>
@@ -68,25 +91,35 @@ const TransactionContent = (props) => {
 
 export const PaybackFrom = () => {
   const { paybackFrom, setPaybackFrom, setPaybackTo } = useAuditContext();
-  function handleOnClick() {
+  const actionSymbol = REMOVE_SYMBOL;
+  function actionHandler() {
     setPaybackFrom(null);
     setPaybackTo(null);
   }
   return (
-    <PaybackFromTransaction onClick={handleOnClick}>
-      <TransactionContent transaction={paybackFrom} />
+    <PaybackFromTransaction>
+      <TransactionContent
+        transaction={paybackFrom}
+        actionSymbol={actionSymbol}
+        actionHandler={actionHandler}
+      />
     </PaybackFromTransaction>
   );
 };
 
 export const PaybackTo = () => {
   const { paybackTo, setPaybackTo } = useAuditContext();
-  function handleOnClick() {
+  const actionSymbol = REMOVE_SYMBOL;
+  function actionHandler() {
     setPaybackTo(null);
   }
   return (
-    <PaybackToTransaction onClick={handleOnClick}>
-      <TransactionContent transaction={paybackTo} />
+    <PaybackToTransaction>
+      <TransactionContent
+        transaction={paybackTo}
+        actionSymbol={actionSymbol}
+        actionHandler={actionHandler}
+      />
     </PaybackToTransaction>
   );
 };
@@ -94,13 +127,17 @@ export const PaybackTo = () => {
 export const Payback = (props) => {
   const { transaction } = props;
   const { paybackFrom, setPaybackFrom } = useAuditContext();
-  const isSelectable = !paybackFrom;
-  function handleOnClick() {
+  const actionSymbol = PAYBACK_SYMBOL;
+  function actionHandler() {
     if (!paybackFrom) setPaybackFrom(transaction);
   }
   return (
-    <PaybackTransacton isSelectable={isSelectable} onClick={handleOnClick}>
-      <TransactionContent transaction={transaction} />
+    <PaybackTransacton>
+      <TransactionContent
+        transaction={transaction}
+        actionSymbol={actionSymbol}
+        actionHandler={actionHandler}
+      />
     </PaybackTransacton>
   );
 };
@@ -108,7 +145,7 @@ export const Payback = (props) => {
 export const Untagged = (props) => {
   const { transaction } = props;
   return (
-    <UntaggedTransaction onClick={secretOnClick(transaction.id)}>
+    <UntaggedTransaction>
       <TransactionContent transaction={transaction} />
     </UntaggedTransaction>
   );
@@ -118,17 +155,19 @@ export const Tagged = (props) => {
   const { transaction, index } = props;
   const { paybackFrom, setPaybackTo } = useAuditContext();
   const isValidPayback = paybackFrom && paybackIsValid(paybackFrom, transaction);
-  const isSelectable = !!paybackFrom && isValidPayback;
-  function handleOnClick() {
-    if (paybackFrom && isValidPayback) {
-      setPaybackTo(transaction);
-    } else {
-      secretOnClick(transaction.id)();
-    }
+  const isPaybackFromCandidate = paybackFrom && isValidPayback;
+  const actionSymbol = isPaybackFromCandidate ? PAYBACK_SYMBOL : null;
+  function handleAction() {
+    setPaybackTo(transaction);
   }
+  const actionHandler = isPaybackFromCandidate ? handleAction : null;
   return (
-    <TaggedTransaction isSelectable={isSelectable} onClick={handleOnClick} index={index}>
-      <TransactionContent transaction={transaction} showPaybackSymbol={isValidPayback} />
+    <TaggedTransaction index={index}>
+      <TransactionContent
+        transaction={transaction}
+        actionSymbol={actionSymbol}
+        actionHandler={actionHandler}
+      />
     </TaggedTransaction>
   );
 };
