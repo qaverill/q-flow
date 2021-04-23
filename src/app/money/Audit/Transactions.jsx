@@ -18,7 +18,7 @@ import { useAuditContext } from './context';
 export const PAYBACK_SYMBOL = '💸';
 const REMOVE_SYMBOL = '❌';
 const secretAction = (id) => copyStringToClipboard(id);
-const paybackIsValid = (paybackFrom, paybackTo) => paybackFrom.amount < paybackTo.amount * -1;
+const paybackIsValid = (paybackFrom, paybackTo) => paybackFrom.amount <= paybackTo.amount * -1;
 // ----------------------------------
 // STYLES
 // ----------------------------------
