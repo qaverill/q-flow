@@ -144,9 +144,21 @@ export const Payback = (props) => {
 
 export const Untagged = (props) => {
   const { transaction } = props;
+  const { paybackFrom, setPaybackTo } = useAuditContext();
+  const isValidPayback = paybackFrom && paybackIsValid(paybackFrom, transaction);
+  const isPaybackFromCandidate = paybackFrom && isValidPayback;
+  const actionSymbol = isPaybackFromCandidate ? PAYBACK_SYMBOL : null;
+  function handleAction() {
+    setPaybackTo(transaction);
+  }
+  const actionHandler = isPaybackFromCandidate ? handleAction : null;
   return (
     <UntaggedTransaction>
-      <TransactionContent transaction={transaction} />
+      <TransactionContent
+        transaction={transaction}
+        actionSymbol={actionSymbol}
+        actionHandler={actionHandler}
+      />
     </UntaggedTransaction>
   );
 };

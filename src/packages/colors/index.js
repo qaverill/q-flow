@@ -17,6 +17,7 @@ export const yellow = '#F4E409';
 export const green =  '#1CB050';
 export const blue =   '#008BF5';
 export const purple = '#9636FC';
+export const pink =   '#FF47D4';
 // ----------------------------------
 // TYPES
 // ----------------------------------

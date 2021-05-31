@@ -1,60 +1,44 @@
 import * as React from 'react';
 import * as R from 'ramda';
 import styled from 'styled-components';
-import {
-  AreaChart, Area, Tooltip, XAxis, YAxis, ResponsiveContainer,
-} from 'recharts';
 import { timestampToMonthString } from '@q/time';
-import {
-  green, yellow, red, purple,
-} from '@q/colors';
-import { Slate, Title } from '@q/core';
 import { fetchAnalysis } from '../api';
+import ReviewChart from './charts/ReviewChart';
+import BreakdownChart from './charts/BreakdownChart';
 // ----------------------------------
 // HELPERS
 // ----------------------------------
-const buildChartData = (analysis) => R.keys(analysis).map((timestamp) => {
-  const { incoming, outcoming, delta } = analysis[timestamp];
-  const month = timestampToMonthString(timestamp);
-  return {
-    month, incoming, outcoming, delta,
-  };
-});
-
+const buildChartData = (analysis) => {
+  const reviewData = [];
+  const breakdownData = [];
+  R.keys(analysis)
+    .forEach((timestamp) => {
+      const {
+        incoming,
+        outcoming,
+        delta,
+        tags,
+      } = analysis[timestamp];
+      const month = timestampToMonthString(timestamp);
+      reviewData.push({ month, incoming, outcoming, delta });
+      breakdownData.push({ month, ...tags });
+    });
+  return { reviewData, breakdownData };
+};
 // ----------------------------------
 // STYLES
 // ----------------------------------
-const TooltopContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0 5px;
-`;
-const TooltipItem = styled(Title)`
-  margin: 5px 0;
+const reviewChartHeight = '20%';
+const breakdownChartHeight = '80%';
+const AnalyzeWrapper = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 // ----------------------------------
 // COMPONENTS
-// ----------------------------------
-const CustomTooltip = (props) => {
-  const { payload, label, active } = props;
-  if (active) {
-    return (
-      <Slate color={purple}>
-        <TooltopContainer>
-          <TooltipItem>{label}</TooltipItem>
-          {payload.map(({ color, name, value }) => (
-            <TooltipItem key={name} color={color}>
-              {`${name}: ${value}`}
-            </TooltipItem>
-          ))}
-        </TooltopContainer>
-      </Slate>
-    );
-  }
-  return null;
-};
-const Analyze = (props) => {
-  const [data, setData] = React.useState([]);
+const Analyze = () => {
+  const [data, setData] = React.useState({});
+  const { reviewData, breakdownData } = data;
   function loadChartData() {
     fetchAnalysis().then(R.compose(
       setData,
@@ -63,15 +47,10 @@ const Analyze = (props) => {
   }
   React.useEffect(loadChartData, []);
   return (
-    <ResponsiveContainer width="100%" height="20%">
-      <AreaChart width={400} height={400} data={data}>
-        <Area type="monotone" dataKey="incoming" stroke={green} fillOpacity={0.5} fill={green} />
-        <Area type="monotone" dataKey="outcoming" stroke={red} fillOpacity={0.5} fill={red} />
-        <Area type="monotone" dataKey="delta" stroke={yellow} fillOpacity={0.5} fill={yellow} />
-        <Tooltip content={<CustomTooltip />} />
-      </AreaChart>
-
-    </ResponsiveContainer>
+    <AnalyzeWrapper>
+      {reviewData && <ReviewChart data={reviewData} height={reviewChartHeight} />}
+      {breakdownData && <BreakdownChart data={breakdownData} height={breakdownChartHeight} />}
+    </AnalyzeWrapper>
   );
 };
 
