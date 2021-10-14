@@ -14,8 +14,8 @@ export const fetchTransactions = (timeframe) => new Promise((resolve) => {
       R.prop('data'),
     ));
 });
-export const fetchAnalysis = (timeframe) => new Promise((resolve) => {
-  axios.get('/api/analyze/money', timeframe)
+export const fetchAnalysis = (filter, timeline = {}) => new Promise((resolve) => {
+  axios.get('/api/analyze/money', { params: { filter, ...timeline }})
     .then(R.compose(
       resolve,
       R.prop('data'),

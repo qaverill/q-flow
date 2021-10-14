@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { timestampToMonthString } from '@q/time';
 import { fetchAnalysis } from '../api';
 import ReviewChart from './charts/ReviewChart';
-import BreakdownChart from './charts/BreakdownChart';
+import FilteredChart from './charts/FilteredChart';
 // ----------------------------------
 // HELPERS
 // ----------------------------------
@@ -28,8 +28,9 @@ const buildChartData = (analysis) => {
 // ----------------------------------
 // STYLES
 // ----------------------------------
+const incomeChartHeight = '30%';
 const reviewChartHeight = '20%';
-const breakdownChartHeight = '80%';
+const breakdownChartHeight = '50%';
 const AnalyzeWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -48,8 +49,9 @@ const Analyze = () => {
   React.useEffect(loadChartData, []);
   return (
     <AnalyzeWrapper>
-      {reviewData && <ReviewChart data={reviewData} height={reviewChartHeight} />}
-      {breakdownData && <BreakdownChart data={breakdownData} height={breakdownChartHeight} />}
+      <FilteredChart filter="income" height={incomeChartHeight} />
+      <ReviewChart height={reviewChartHeight} />
+      <FilteredChart filter="expenses" height={breakdownChartHeight} />
     </AnalyzeWrapper>
   );
 };
