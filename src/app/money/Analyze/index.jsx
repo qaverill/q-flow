@@ -1,30 +1,12 @@
 import * as React from 'react';
-import * as R from 'ramda';
 import styled from 'styled-components';
-import { timestampToMonthString } from '@q/time';
-import { fetchAnalysis } from '../api';
 import ReviewChart from './charts/ReviewChart';
-import FilteredChart from './charts/FilteredChart';
+import FilteredData from './charts/FilteredData';
 // ----------------------------------
 // HELPERS
 // ----------------------------------
-const buildChartData = (analysis) => {
-  const reviewData = [];
-  const breakdownData = [];
-  R.keys(analysis)
-    .forEach((timestamp) => {
-      const {
-        incoming,
-        outcoming,
-        delta,
-        tags,
-      } = analysis[timestamp];
-      const month = timestampToMonthString(timestamp);
-      reviewData.push({ month, incoming, outcoming, delta });
-      breakdownData.push({ month, ...tags });
-    });
-  return { reviewData, breakdownData };
-};
+const INCOME_FILTER = 'income';
+const EXPENSES_FILTER = 'expenses';
 // ----------------------------------
 // STYLES
 // ----------------------------------
@@ -38,20 +20,31 @@ const AnalyzeWrapper = styled.div`
 // ----------------------------------
 // COMPONENTS
 const Analyze = () => {
-  const [data, setData] = React.useState({});
-  const { reviewData, breakdownData } = data;
-  function loadChartData() {
-    fetchAnalysis().then(R.compose(
-      setData,
-      buildChartData,
-    ));
-  }
-  React.useEffect(loadChartData, []);
+  const [filterToExpand, setFilterToExpand] = React.useState(null);
+  const incomeIsExpanded = filterToExpand === INCOME_FILTER;
+  const expensesIsExpanded = filterToExpand === EXPENSES_FILTER;
+  const showReviewChart = filterToExpand == null;
+  const showIncomeFilteredChart = showReviewChart || incomeIsExpanded;
+  const showExpensesFilteredChart = showReviewChart || expensesIsExpanded;
   return (
     <AnalyzeWrapper>
-      <FilteredChart filter="income" height={incomeChartHeight} />
-      <ReviewChart height={reviewChartHeight} />
-      <FilteredChart filter="expenses" height={breakdownChartHeight} />
+      {showIncomeFilteredChart && (
+        <FilteredData
+          filter={INCOME_FILTER}
+          height={incomeChartHeight}
+          expanded={incomeIsExpanded}
+          setFilterToExpand={setFilterToExpand}
+        />
+      )}
+      {showReviewChart && <ReviewChart height={reviewChartHeight} />}
+      {showExpensesFilteredChart && (
+        <FilteredData
+          filter={EXPENSES_FILTER}
+          height={breakdownChartHeight}
+          expanded={expensesIsExpanded}
+          setFilterToExpand={setFilterToExpand}
+        />
+      )}
     </AnalyzeWrapper>
   );
 };

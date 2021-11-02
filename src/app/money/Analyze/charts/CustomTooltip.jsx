@@ -22,14 +22,18 @@ const CustomTooltip = (props) => {
     payload,
     label,
     active,
+    highlightedDataKey,
   } = props;
   if (active) {
     const { month } = data[label];
+    const processedPayload = highlightedDataKey == null
+      ? payload
+      : payload.filter((d) => d.dataKey === highlightedDataKey);
     return (
       <Slate color={purple}>
         <TooltopContainer>
           <TooltipItem>{month}</TooltipItem>
-          {payload.map(({ color, name, value }) => (
+          {processedPayload.map(({ color, name, value }) => (
             <TooltipItem key={name} color={color}>
               {`${name}: ${value}`}
             </TooltipItem>

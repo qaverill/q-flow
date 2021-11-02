@@ -5,7 +5,7 @@ import {
 } from 'recharts';
 import { green, yellow, red } from '@q/colors';
 import { timestampToMonthString } from '@q/time';
-import CustomTooltip from './components';
+import CustomTooltip from './CustomTooltip';
 import { fetchAnalysis } from '../../api';
 // ----------------------------------
 // HELPERS
@@ -35,7 +35,6 @@ const buildChartData = (analysis) => {
 const ReviewChart = (props) => {
   const { height } = props;
   const [reviewData, setReviewData] = React.useState([]);
-  console.log({ reviewData });
   React.useEffect(() => {
     fetchAnalysis().then(R.compose(
       setReviewData,
