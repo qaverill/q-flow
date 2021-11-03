@@ -5,37 +5,55 @@ import styled from 'styled-components';
 import {
   blue, orange, pink, purple, green, yellow, red,
 } from '@q/colors';
+import { numberToPrice } from '@q/utils';
 import { fetchAnalysis } from '../../../api';
 import FilteredChart from './FilteredChart';
 import FilteredDataLegend from './FilteredDataLegend';
 // ----------------------------------
 // HELPERS
 // ----------------------------------
-const determineDataPoints = (data) => {
-  let keyIndex = 0;
+function calculateSums(data) {
+  const sums = {};
+  data.forEach((dataLog) => {
+    R.keys(dataLog).forEach((key) => {
+      if (key !== 'month') {
+        sums[key] = sums[key] != null ? sums[key] + dataLog[key] : dataLog[key];
+      }
+    });
+  });
+  return sums;
+}
+function determineDataPoints(data) {
   const dataPoints = [];
   const colors = [blue, orange, pink, purple, red, yellow, green];
-  R.keys(data[0]).forEach((key) => {
-    if (key !== 'month') {
-      dataPoints.push({
-        dataKey: key,
-        color: colors[keyIndex],
-      });
-      keyIndex += 1;
-    }
+  const sums = calculateSums(data);
+  R.keys(sums).forEach((key, index) => {
+    dataPoints.push({
+      dataKey: key,
+      color: colors[index],
+      average: numberToPrice(sums[key] / data.length),
+    });
   });
   return dataPoints;
-};
-const buildChartData = (analysis) => {
+}
+function calculateTagsTotal(tags) {
+  let total = 0;
+  R.keys(tags).forEach((tag) => {
+    total += tags[tag];
+  });
+  return total;
+}
+function buildChartData(analysis) {
   const chartData = [];
   R.keys(analysis)
     .forEach((timestamp) => {
       const { tags } = analysis[timestamp];
       const month = timestampToMonthString(timestamp);
-      chartData.push({ month, ...tags });
+      const total = calculateTagsTotal(tags);
+      chartData.push({ month, ...tags, total });
     });
   return chartData;
-};
+}
 // ----------------------------------
 // STYLES
 // ----------------------------------
